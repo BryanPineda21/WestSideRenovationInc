@@ -18,7 +18,7 @@ import {
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 
-import Logo from '../../logo/logo.png'
+import Logo from '../../logo/logo2.svg'
 
 
 
@@ -94,13 +94,13 @@ const Navbar: React.FC = () => {
         <div className="flex items-center justify-between px-6 py-2">
           {/* Logo */}
           <Link href="/" className="text-lg font-bold">
-            {/* <Image  src={Logo} 
+            <Image  src={Logo} 
             alt="Logo" 
-            width={120} 
-            height={40} 
+            width={50} 
+            height={50} 
             className="object-cover h-10"
-            /> */}
-            <h2 className="font-geist font-medium">WESTSIDE RENOVATION INC</h2>
+            />
+            {/* <h2 className="font-geist font-medium">WESTSIDE RENOVATION INC</h2> */}
           </Link>
           
           
