@@ -40,8 +40,7 @@ const Contact: React.FC = () => {
     }));
   };
   
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
     
     // Form validation
     if (!formData.name || !formData.email || !formData.message) {
@@ -80,13 +79,24 @@ const Contact: React.FC = () => {
     }
   };
   
-  // Animation variants
-  const fadeIn = {
-    hidden: { opacity: 0, y: 20 },
+  // Optimized animation variants - using transform properties for better performance
+  const fadeInUp = {
+    hidden: { opacity: 0, transform: "translateY(30px)" },
     visible: {
       opacity: 1,
-      y: 0,
-      transition: { duration: 0.6 }
+      transform: "translateY(0px)",
+      transition: { 
+        duration: 0.5,
+        ease: [0.25, 0.46, 0.45, 0.94] // Custom easing for smoother animation
+      }
+    }
+  };
+  
+  const fadeIn = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { duration: 0.4 }
     }
   };
   
@@ -95,39 +105,42 @@ const Contact: React.FC = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1
+        staggerChildren: 0.08,
+        delayChildren: 0.1
       }
     }
   };
   
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-gray-50 dark:from-gray-900 dark:to-gray-800 transition-colors duration-300">
-      {/* Hero Section */}
-      <section className="relative h-[300px] w-full overflow-hidden">
+      {/* Hero Section - Added top padding for navbar */}
+      <section className="relative h-[300px] w-full overflow-hidden mt-16 lg:mt-20">
         <div className="absolute inset-0 bg-gradient-to-r from-blue-900/80 to-blue-600/70">
           <div className="absolute inset-0 bg-[url('/images/hero-placeholder.jpg')] bg-cover bg-center opacity-60"></div>
         </div>
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-4">
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+            initial={{ opacity: 0, transform: "translateY(-20px)" }}
+            animate={{ opacity: 1, transform: "translateY(0px)" }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
             className="bg-blue-600/30 backdrop-blur-sm text-blue-100 rounded-full px-4 py-1 inline-block mb-4 border border-blue-400/30"
+            style={{ willChange: "transform" }}
           >
             Get In Touch
           </motion.div>
           <motion.h1 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
+            initial={{ opacity: 0, transform: "translateY(20px)" }}
+            animate={{ opacity: 1, transform: "translateY(0px)" }}
+            transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
             className="text-4xl sm:text-5xl font-bold text-white mb-4 drop-shadow-lg"
+            style={{ willChange: "transform" }}
           >
             Contact Us
           </motion.h1>
           <motion.p 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
             className="text-lg sm:text-xl text-gray-100 max-w-2xl drop-shadow-md"
           >
             We're here to answer your questions and bring your vision to life
@@ -142,9 +155,10 @@ const Contact: React.FC = () => {
           <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeIn}
+            viewport={{ once: true, margin: "-50px" }}
+            variants={fadeInUp}
             className="bg-white dark:bg-gray-800 rounded-xl shadow-xl p-8"
+            style={{ willChange: "transform" }}
           >
             <div className="mb-6">
               <h2 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center">
@@ -156,7 +170,7 @@ const Contact: React.FC = () => {
               </p>
             </div>
             
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="space-y-6">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <label htmlFor="name" className="text-sm font-medium text-gray-700 dark:text-gray-300">
@@ -245,22 +259,30 @@ const Contact: React.FC = () => {
               </div>
               
               {formState === "error" && (
-                <div className="bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-400 p-3 rounded-md flex items-start">
+                <motion.div 
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: "auto" }}
+                  className="bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-400 p-3 rounded-md flex items-start"
+                >
                   <AlertCircle className="w-5 h-5 mr-2 flex-shrink-0 mt-0.5" />
                   <p>{errorMessage}</p>
-                </div>
+                </motion.div>
               )}
               
               {formState === "success" && (
-                <div className="bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-400 p-3 rounded-md flex items-start">
+                <motion.div 
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: "auto" }}
+                  className="bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-400 p-3 rounded-md flex items-start"
+                >
                   <CheckCircle2 className="w-5 h-5 mr-2 flex-shrink-0 mt-0.5" />
                   <p>Your message has been sent successfully! We'll be in touch soon.</p>
-                </div>
+                </motion.div>
               )}
               
               <Button 
-                type="submit" 
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white"
+                onClick={handleSubmit}
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white transition-colors duration-200"
                 disabled={formState === "submitting"}
               >
                 {formState === "submitting" ? (
@@ -278,19 +300,23 @@ const Contact: React.FC = () => {
                   </span>
                 )}
               </Button>
-            </form>
+            </div>
           </motion.div>
           
           {/* Contact Information Section */}
           <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: "-50px" }}
             variants={staggerContainer}
             className="space-y-8"
           >
             {/* Business Info Card */}
-            <motion.div variants={fadeIn} className="bg-white dark:bg-gray-800 rounded-xl shadow-xl p-8">
+            <motion.div 
+              variants={fadeInUp} 
+              className="bg-white dark:bg-gray-800 rounded-xl shadow-xl p-8"
+              style={{ willChange: "transform" }}
+            >
               <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Contact Information</h2>
               
               <div className="space-y-6">
@@ -301,7 +327,7 @@ const Contact: React.FC = () => {
                   <div className="ml-4">
                     <h3 className="text-lg font-medium text-gray-900 dark:text-white">Phone</h3>
                     <p className="mt-1 text-gray-600 dark:text-gray-300">
-                      <a href="tel:+16462391844" className="hover:text-blue-600 dark:hover:text-blue-400">
+                      <a href="tel:+16462391844" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200">
                         (646) 239-1844
                       </a>
                     </p>
@@ -315,7 +341,7 @@ const Contact: React.FC = () => {
                   <div className="ml-4">
                     <h3 className="text-lg font-medium text-gray-900 dark:text-white">Email</h3>
                     <p className="mt-1 text-gray-600 dark:text-gray-300">
-                      <a href="mailto:info@westsideren.com" className="hover:text-blue-600 dark:hover:text-blue-400">
+                      <a href="mailto:info@westsideren.com" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200">
                         info@westsideren.com
                       </a>
                     </p>
@@ -352,7 +378,11 @@ const Contact: React.FC = () => {
             </motion.div>
             
             {/* Schedule Appointment Card */}
-            <motion.div variants={fadeIn} className="bg-white dark:bg-gray-800 rounded-xl shadow-xl p-8">
+            <motion.div 
+              variants={fadeInUp} 
+              className="bg-white dark:bg-gray-800 rounded-xl shadow-xl p-8"
+              style={{ willChange: "transform" }}
+            >
               <div className="flex items-center mb-4">
                 <Calendar className="h-6 w-6 text-blue-600 dark:text-blue-400 mr-2" />
                 <h3 className="text-xl font-bold text-gray-900 dark:text-white">Schedule a Consultation</h3>
@@ -360,54 +390,21 @@ const Contact: React.FC = () => {
               <p className="text-gray-600 dark:text-gray-300 mb-4">
                 Prefer to schedule a specific time? Book a consultation with our team to discuss your project in detail.
               </p>
-              <Button className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white">
+              <Button className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white transition-all duration-200">
                 Book Appointment
               </Button>
             </motion.div>
           </motion.div>
         </div>
         
-        {/* Map Section */}
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={fadeIn}
-          className="mt-16"
-        >
-          <div className="text-center mb-10">
-            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-4">Find Us</h2>
-            <Separator className="w-24 mx-auto bg-blue-500 h-1 mb-6" />
-            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-              Conveniently located in the heart of New York City
-            </p>
-          </div>
-          
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-xl p-4 h-[400px] relative overflow-hidden">
-            {/* Replace with an actual map component or embed Google Maps */}
-            <div className="absolute inset-0 bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
-              <p className="text-gray-500 dark:text-gray-400">
-              <iframe
-                width="1200"
-                height="400"
-                frameBorder="0"
-                style={{ border: 0 }}
-                referrerPolicy="no-referrer-when-downgrade"
-                src="https://www.google.com/maps/embed/v1/place?key=AIzaSyA7IkzVTnUzWbwdlap-0ev6EZHteFT7P9Z8&q=Eiffel+Tower,Paris+France"
-                allowFullScreen
-              ></iframe>
-              </p>
-            </div>
-          </div>
-        </motion.div>
-        
         {/* Call to Action */}
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "-100px" }}
           variants={fadeIn}
           className="mt-16 text-center rounded-2xl bg-gradient-to-r from-blue-600 to-blue-800 dark:from-blue-800 dark:to-blue-900 p-10 shadow-xl text-white relative overflow-hidden"
+          style={{ willChange: "transform" }}
         >
           <div className="absolute inset-0 bg-[url('/api/placeholder/800/400')] bg-cover bg-center opacity-10 mix-blend-overlay"></div>
           
@@ -416,10 +413,10 @@ const Contact: React.FC = () => {
             Contact us today and let us help bring your renovation dreams to life.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4 relative z-10">
-            <Button size="lg" className="bg-white text-blue-800 hover:bg-blue-50">
+            <Button size="lg" className="bg-white text-blue-800 hover:bg-blue-50 transition-colors duration-200">
               Call (646) 239-1844
             </Button>
-            <Button size="lg" variant="outline" className="text-white border-white hover:bg-white/10">
+            <Button size="lg" variant="outline" className="text-white border-white hover:bg-white/10 transition-colors duration-200">
               Email Us
             </Button>
           </div>

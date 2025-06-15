@@ -1,5 +1,7 @@
+// app/page.tsx (Updated to use Firebase)
 "use client";
 
+import { useEffect, useState } from "react";
 import {
   Carousel,
   CarouselContent,
@@ -17,11 +19,13 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-import { Button } from "@/components/ui/button";import React, { useEffect } from "react";
+import { Button } from "@/components/ui/button";
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion, useAnimation, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { ChevronRight, Award, CheckCircle, Clock, Phone, Hammer, Paintbrush, Wrench, HomeIcon, ArrowRight, Star } from "lucide-react";
+import { projectService, Project } from "@/lib/firebase-admin";
 
 // Reusable section header component
 interface SectionHeaderProps {
@@ -99,39 +103,30 @@ const testimonials = [
   },
 ];
 
-// Project images for carousel (replace with your actual images)
-const projectImages = [
-  {
-    src: "/cabinetinstallation.png",
-    alt: "Closet installation and painting in a bedroom",
-    title: "Closet Painting and Installation",
-    location: "New Jersey, Cliffside Park",
-  },
-  {
-    src: "/fencepainting.png",
-    alt: "Fence painting and restoration in a backyard",
-    title: "Backyard Fence Painting and Restoration",
-    location: "Pound Ridge, NY",
-  },
-  {
-    src: "/yorkville.png",
-    alt: "Therapy room with hanging equipment",
-    title: " Kids Rehabilitation Center Hanging Equipment Installation and Restoration",
-    location: "Yorkville, Manhattan",
-  },
-  {
-    src: "/floorsanding.jpeg",
-    alt: "Floor painting and restoration in a home",
-    title: "Floor Restoration and Painting",
-    location: "Upper West Side",
-  },
-];
-
 export default function Home() {
+  const [featuredProjects, setFeaturedProjects] = useState<Project[]>([]);
+  const [loading, setLoading] = useState(true);
+
   // Create animations based on scroll position
   const { scrollY } = useScroll();
   const heroOpacity = useTransform(scrollY, [0, 300], [1, 0]);
   const heroY = useTransform(scrollY, [0, 300], [0, 100]);
+
+  // Load featured projects from Firebase
+  useEffect(() => {
+    const loadFeaturedProjects = async () => {
+      try {
+        const projects = await projectService.getFeaturedProjects();
+        setFeaturedProjects(projects.slice(0, 6)); // Limit to 6 featured projects
+      } catch (error) {
+        console.error('Error loading featured projects:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadFeaturedProjects();
+  }, []);
 
   // Animation variants for staggered animations
   const containerVariants = {
@@ -159,22 +154,20 @@ export default function Home() {
       <section className="relative w-full bg-gradient-to-r from-slate-900 via-blue-900 to-slate-800 text-white overflow-hidden h-[90vh] min-h-[600px] flex items-center">
         {/* Background with parallax effect */}
         <div className="absolute inset-0 z-0 overflow-hidden">
-        <motion.div
-          style={{ y: heroY, height: "120%", width: "100%", position: "absolute", top: "-10%" }}
-        >
-          <Image
-            src="/icestudios.png" 
-            alt="Luxury renovation showcase"
-            fill
-            priority
-            className="object-cover opacity-30"
-            sizes="100vw"
-          />
-        </motion.div>
-      </div>
+          <motion.div
+            style={{ y: heroY, height: "120%", width: "100%", position: "absolute", top: "-10%" }}
+          >
+            <Image
+              src="/icestudios.png" 
+              alt="Luxury renovation showcase"
+              fill
+              priority
+              className="object-cover opacity-30"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            />
+          </motion.div>
+        </div>
 
-
-  
         <div className="absolute inset-0 bg-gradient-to-b from-blue-900/50 to-black/70 z-0"></div>
         
         <motion.div 
@@ -232,23 +225,29 @@ export default function Home() {
               <Button 
                 size="lg" 
                 className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 border-0 group transition-all"
+                asChild
               >
-                Schedule a Consultation
-                <motion.div
-                  className="ml-2"
-                  initial={{ x: 0 }}
-                  whileHover={{ x: 5 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                >
-                  <ChevronRight className="h-5 w-5" />
-                </motion.div>
+                <Link href="/contact">
+                  Schedule a Consultation
+                  <motion.div
+                    className="ml-2"
+                    initial={{ x: 0 }}
+                    whileHover={{ x: 5 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                  >
+                    <ChevronRight className="h-5 w-5" />
+                  </motion.div>
+                </Link>
               </Button>
               <Button 
                 size="lg" 
                 variant="outline" 
                 className="border-white text-white hover:bg-white/10"
+                asChild
               >
-                View Our Portfolio
+                <Link href="/projects">
+                  View Our Portfolio
+                </Link>
               </Button>
             </motion.div>
           </motion.div>
@@ -342,46 +341,90 @@ export default function Home() {
             subtitle="Browse our recent transformations and get inspired for your next renovation project" 
           />
 
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.8 }}
-          >
-            <Carousel className="w-full max-w-5xl mx-auto">
-              <CarouselContent>
-                {projectImages.map((project, index) => (
-                  <CarouselItem key={index}>
-                    <motion.div 
-                      className="relative aspect-video rounded-xl overflow-hidden"
-                      whileHover={{ scale: 1.02 }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      <Image
-                        src={project.src}
-                        alt={project.alt}
-                        fill
-                        className="object-cover"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent flex flex-col justify-end p-8 text-white">
-                        <h3 className="text-2xl font-bold">{project.title}</h3>
-                        <p className="text-gray-200">{project.location}</p>
-                        <motion.button 
-                          className="mt-4 flex items-center text-blue-300 font-medium text-sm" 
-                          whileHover={{ x: 5 }}
-                          transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                        >
-                          View Project <ArrowRight className="ml-1 h-4 w-4" />
-                        </motion.button>
-                      </div>
-                    </motion.div>
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-              <CarouselPrevious className="left-2 -translate-y-1/2" />
-              <CarouselNext className="right-2 -translate-y-1/2" />
-            </Carousel>
-          </motion.div>
+          {loading ? (
+            <div className="text-center">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+              <p className="mt-4 text-gray-600 dark:text-gray-300">Loading projects...</p>
+            </div>
+          ) : featuredProjects.length > 0 ? (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.8 }}
+            >
+              <Carousel className="w-full max-w-5xl mx-auto">
+                <CarouselContent>
+                  {featuredProjects.map((project, index) => (
+                    <CarouselItem key={project.id || index}>
+                      <motion.div 
+                        className="relative aspect-video rounded-xl overflow-hidden"
+                        whileHover={{ scale: 1.02 }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        {project.images && project.images.length > 0 ? (
+                          <Image
+                            src={project.images[0]}
+                            alt={project.title}
+                            fill
+                            className="object-cover"
+                            priority
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                          />
+                        ) : (
+                          <div className="w-full h-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
+                            <span className="text-gray-500 dark:text-gray-400">No image available</span>
+                          </div>
+                        )}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent flex flex-col justify-end p-8 text-white">
+                          <h3 className="text-2xl font-bold">{project.title}</h3>
+                          <p className="text-gray-200">{project.location}</p>
+                          <motion.button 
+                            className="mt-4 flex items-center text-blue-300 font-medium text-sm" 
+                            whileHover={{ x: 5 }}
+                            transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                            onClick={() => window.location.href = `/projects/${project.id}`}
+                          >
+                            View Project <ArrowRight className="ml-1 h-4 w-4" />
+                          </motion.button>
+                        </div>
+                      </motion.div>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+                <CarouselPrevious className="left-2 -translate-y-1/2" />
+                <CarouselNext className="right-2 -translate-y-1/2" />
+              </Carousel>
+            </motion.div>
+          ) : (
+            <div className="text-center py-12">
+              <p className="text-gray-600 dark:text-gray-300">No featured projects available at the moment.</p>
+            </div>
+          )}
+
+          {featuredProjects.length > 0 && (
+            <motion.div 
+              className="text-center mt-12"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7 }}
+            >
+              <Button asChild variant="outline" className="dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 group" size="lg">
+                <Link href="/projects" className="flex items-center">
+                  View All Projects
+                  <motion.div
+                    className="ml-2"
+                    initial={{ x: 0 }}
+                    whileHover={{ x: 5 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                  >
+                    <ChevronRight className="h-5 w-5" />
+                  </motion.div>
+                </Link>
+              </Button>
+            </motion.div>
+          )}
         </div>
       </section>
 
@@ -545,14 +588,18 @@ export default function Home() {
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <Button size="lg" variant="secondary" className="bg-white text-blue-700 hover:bg-gray-100 dark:hover:bg-gray-200">
-                  <Phone className="mr-2 h-5 w-5" />
-                  (646) 239-1844
+                <Button size="lg" variant="secondary" className="bg-white text-blue-700 hover:bg-gray-100 dark:hover:bg-gray-200" asChild>
+                  <a href="tel:+16462391844">
+                    <Phone className="mr-2 h-5 w-5" />
+                    (646) 239-1844
+                  </a>
                 </Button>
               </motion.div>
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <Button size="lg" className="bg-white/20 hover:bg-white/30 border-2 border-white">
-                  Schedule Consultation
+                <Button size="lg" className="bg-white/20 hover:bg-white/30 border-2 border-white" asChild>
+                  <Link href="/contact">
+                    Schedule Consultation
+                  </Link>
                 </Button>
               </motion.div>
             </div>
@@ -579,7 +626,7 @@ export default function Home() {
             viewport={{ once: true }}
             transition={{ duration: 0.7, delay: 0.2 }}
           >
-            Westside Renovation Inc. — Proudly serving New York since 1995
+            Westside Renovation Inc. — Proudly serving New York since 2012
           </motion.p>
         </div>
       </section>
