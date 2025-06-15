@@ -50,8 +50,6 @@ import { useAuth } from '@/lib/auth-context';
 import { projectService, Project } from '@/lib/firebase-admin';
 import { ProtectedRoute } from '@/components/ProtectedRoute';
 import { cn } from '@/lib/utils';
-import DebugStorage from '@/components/DebugStorage';
-import FirestoreRulesTest from '@/components/FirestoreRulesTest';
 
 interface ProjectCardProps {
   project: Project;
