@@ -246,7 +246,7 @@ const ProjectForm: React.FC<ProjectFormProps> = ({ project }) => {
   };
 
   return (
-    <div className="min-h-screen bg-background pt-24 sm:pt-24 pb-16 sm:pb-24">
+    <div className="min-h-screen bg-background pt-16 sm:pt-20 pb-16 sm:pb-20">
       <div className="max-w-4xl mx-auto px-3 sm:px-6 lg:px-8">
         {/* Header */}
         <header className="bg-blue-50/90 dark:bg-blue-900/90 backdrop-blur-sm border border-blue-200 dark:border-blue-800 rounded-xl mb-4 sm:mb-6 lg:mb-8 p-3 sm:p-4 lg:p-6 sticky top-4 z-10">
@@ -391,7 +391,11 @@ const ProjectForm: React.FC<ProjectFormProps> = ({ project }) => {
                       name="completedDate"
                       value={formData.completedDate}
                       onChange={handleInputChange}
-                      className="border-blue-200 dark:border-blue-800 h-11 sm:h-12 text-base focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+                      className="border-blue-200 dark:border-blue-800 h-11 sm:h-12 text-base focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all [&::-webkit-calendar-picker-indicator]:opacity-50 [&::-webkit-calendar-picker-indicator]:hover:opacity-100"
+                      style={{ 
+                        WebkitAppearance: 'none',
+                        MozAppearance: 'textfield'
+                      }}
                       required
                     />
                     {formErrors.completedDate && (
@@ -582,35 +586,33 @@ const ProjectForm: React.FC<ProjectFormProps> = ({ project }) => {
           </Card>
 
           {/* Actions */}
-          <div className="sticky bottom-0 bg-background/90 backdrop-blur-sm border-t border-blue-200 dark:border-blue-800 -mx-3 sm:-mx-6 lg:-mx-8 px-3 sm:px-6 lg:px-8 py-4 sm:py-6">
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-end max-w-4xl mx-auto">
-              <Button
-                type="button"
-                variant="outline"
-                onClick={() => router.push('/admin/dashboard')}
-                className="border-blue-200 text-blue-600 dark:border-blue-800 dark:text-blue-300 hover:bg-blue-100 dark:hover:bg-blue-900/30 h-11 sm:h-12 order-2 sm:order-1 transition-all"
-                disabled={saving}
-              >
-                Cancel
-              </Button>
-              <Button
-                type="submit"
-                className="bg-gradient-to-r from-blue-600 to-sky-500 text-white hover:from-blue-700 hover:to-sky-600 h-11 sm:h-12 order-1 sm:order-2 font-medium transition-all shadow-lg hover:shadow-xl"
-                disabled={saving || uploading}
-              >
-                {saving ? (
-                  <>
-                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                    Saving...
-                  </>
-                ) : (
-                  <>
-                    <Save className="w-4 h-4 mr-2" />
-                    {isEditing ? 'Update Project' : 'Create Project'}
-                  </>
-                )}
-              </Button>
-            </div>
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-end pt-6 sm:pt-8">
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => router.push('/admin/dashboard')}
+              className="border-blue-200 text-blue-600 dark:border-blue-800 dark:text-blue-300 hover:bg-blue-100 dark:hover:bg-blue-900/30 h-11 sm:h-12 order-2 sm:order-1 transition-all"
+              disabled={saving}
+            >
+              Cancel
+            </Button>
+            <Button
+              type="submit"
+              className="bg-gradient-to-r from-blue-600 to-sky-500 text-white hover:from-blue-700 hover:to-sky-600 h-11 sm:h-12 order-1 sm:order-2 font-medium transition-all shadow-lg hover:shadow-xl"
+              disabled={saving || uploading}
+            >
+              {saving ? (
+                <>
+                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                  Saving...
+                </>
+              ) : (
+                <>
+                  <Save className="w-4 h-4 mr-2" />
+                  {isEditing ? 'Update Project' : 'Create Project'}
+                </>
+              )}
+            </Button>
           </div>
         </form>
       </div>
