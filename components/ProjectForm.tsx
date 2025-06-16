@@ -246,111 +246,122 @@ const ProjectForm: React.FC<ProjectFormProps> = ({ project }) => {
   };
 
   return (
-    <div className="min-h-screen bg-background pt-20 pb-20">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-background pt-16 sm:pt-20 pb-16 sm:pb-20">
+      <div className="max-w-4xl mx-auto px-3 sm:px-6 lg:px-8">
         {/* Header */}
-        <header className="bg-blue-50/90 dark:bg-blue-900/90 backdrop-blur-sm border border-blue-200 dark:border-blue-800 rounded-xl mb-8 p-6">
+        <header className="bg-blue-50/90 dark:bg-blue-900/90 backdrop-blur-sm border border-blue-200 dark:border-blue-800 rounded-xl mb-4 sm:mb-6 lg:mb-8 p-3 sm:p-4 lg:p-6 sticky top-4 z-10">
           <div className="flex items-center justify-between">
             <Button
               variant="ghost"
               onClick={() => router.push('/admin/dashboard')}
-              className="text-blue-600 dark:text-blue-300 hover:bg-blue-100 dark:hover:bg-blue-900/30"
+              className="text-blue-600 dark:text-blue-300 hover:bg-blue-100 dark:hover:bg-blue-900/30 h-8 px-2 sm:h-10 sm:px-4"
             >
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Back
+              <ArrowLeft className="w-4 h-4 mr-1 sm:mr-2" />
+              <span className="hidden xs:inline text-sm sm:text-base">Back</span>
             </Button>
-            <div className="text-center">
-              <h1 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">
+            <div className="text-center flex-1 mx-2 sm:mx-4">
+              <h1 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-900 dark:text-white leading-tight">
                 {isEditing ? 'Edit Project' : 'Create Project'}
               </h1>
-              <p className="text-sm text-gray-800 dark:text-gray-200">
+              <p className="text-xs sm:text-sm text-gray-800 dark:text-gray-200 mt-0.5 sm:mt-1 hidden sm:block">
                 {isEditing ? 'Update project details' : 'Add a new project to your portfolio'}
               </p>
             </div>
-            <div className="w-20" />
+            <div className="w-8 sm:w-12 lg:w-20" />
           </div>
         </header>
 
         {/* Success Message */}
         {successMessage && (
-          <div className="mb-6 p-4 bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-800 rounded-xl flex items-center">
-            <CheckCircle className="w-5 h-5 text-green-500 mr-2" />
+          <div className="mb-4 sm:mb-6 p-3 sm:p-4 bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-800 rounded-xl flex items-start">
+            <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
             <p className="text-sm text-green-600 dark:text-green-300">{successMessage}</p>
           </div>
         )}
 
         {/* Error Message */}
         {errorMessage && (
-          <div className="mb-6 p-4 bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 rounded-xl flex items-center">
-            <AlertCircle className="w-5 h-5 text-red-500 mr-2" />
+          <div className="mb-4 sm:mb-6 p-3 sm:p-4 bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 rounded-xl flex items-start">
+            <AlertCircle className="w-4 h-4 sm:w-5 sm:h-5 text-red-500 mr-2 mt-0.5 flex-shrink-0" />
             <p className="text-sm text-red-600 dark:text-red-300">{errorMessage}</p>
           </div>
         )}
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="space-y-8">
+        <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-8">
           {/* Project Information */}
           <Card className="border-blue-200 dark:border-blue-800 bg-blue-50/90 dark:bg-blue-900/90 backdrop-blur-sm shadow-sm">
             <div className="h-1 bg-gradient-to-r from-blue-600 to-sky-500" />
-            <CardHeader>
-              <CardTitle className="flex items-center text-gray-900 dark:text-white">
-                <FileText className="w-5 h-5 mr-2 text-blue-600 dark:text-blue-300" />
+            <CardHeader className="p-4 sm:p-6">
+              <CardTitle className="flex items-center text-gray-900 dark:text-white text-base sm:text-lg">
+                <FileText className="w-4 h-4 sm:w-5 sm:h-5 mr-2 text-blue-600 dark:text-blue-300 flex-shrink-0" />
                 Project Information
               </CardTitle>
             </CardHeader>
-            <CardContent className="p-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <CardContent className="p-4 sm:p-6 pt-0">
+              <div className="space-y-4 sm:space-y-6">
                 {/* Title */}
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-gray-800 dark:text-gray-200">
-                    Title *
+                <div className="space-y-1.5 sm:space-y-2">
+                  <label htmlFor="title" className="text-sm font-medium text-gray-800 dark:text-gray-200 flex items-center">
+                    <span>Title</span>
+                    <span className="text-red-500 ml-1">*</span>
                   </label>
                   <Input
+                    id="title"
                     name="title"
                     value={formData.title}
                     onChange={handleInputChange}
                     placeholder="e.g., Modern Kitchen Renovation"
-                    className="border-blue-200 dark:border-blue-800"
+                    className="border-blue-200 dark:border-blue-800 h-11 sm:h-12 text-base focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
                     required
                   />
                   {formErrors.title && (
-                    <p className="text-sm text-red-500">{formErrors.title}</p>
+                    <p className="text-sm text-red-500 flex items-center mt-1">
+                      <AlertCircle className="w-3 h-3 mr-1 flex-shrink-0" />
+                      {formErrors.title}
+                    </p>
                   )}
                 </div>
 
                 {/* Location */}
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-gray-800 dark:text-gray-200">
-                    Location *
+                <div className="space-y-1.5 sm:space-y-2">
+                  <label htmlFor="location" className="text-sm font-medium text-gray-800 dark:text-gray-200 flex items-center">
+                    <MapPin className="w-3 h-3 mr-1 text-blue-600 dark:text-blue-300 flex-shrink-0" />
+                    <span>Location</span>
+                    <span className="text-red-500 ml-1">*</span>
                   </label>
-                  <div className="relative">
-                    <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-blue-600 dark:text-blue-300" />
-                    <Input
-                      name="location"
-                      value={formData.location}
-                      onChange={handleInputChange}
-                      placeholder="e.g., Manhattan, NY"
-                      className="pl-10 border-blue-200 dark:border-blue-800"
-                      required
-                    />
-                  </div>
+                  <Input
+                    id="location"
+                    name="location"
+                    value={formData.location}
+                    onChange={handleInputChange}
+                    placeholder="e.g., Manhattan, NY"
+                    className="border-blue-200 dark:border-blue-800 h-11 sm:h-12 text-base focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+                    required
+                  />
                   {formErrors.location && (
-                    <p className="text-sm text-red-500">{formErrors.location}</p>
+                    <p className="text-sm text-red-500 flex items-center mt-1">
+                      <AlertCircle className="w-3 h-3 mr-1 flex-shrink-0" />
+                      {formErrors.location}
+                    </p>
                   )}
                 </div>
 
-                {/* Category */}
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-gray-800 dark:text-gray-200">
-                    Category *
-                  </label>
-                  <div className="relative">
-                    <Tag className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-blue-600 dark:text-blue-300" />
+                {/* Category and Date Row */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+                  {/* Category */}
+                  <div className="space-y-1.5 sm:space-y-2">
+                    <label htmlFor="category" className="text-sm font-medium text-gray-800 dark:text-gray-200 flex items-center">
+                      <Tag className="w-3 h-3 mr-1 text-blue-600 dark:text-blue-300 flex-shrink-0" />
+                      <span>Category</span>
+                      <span className="text-red-500 ml-1">*</span>
+                    </label>
                     <select
+                      id="category"
                       name="category"
                       value={formData.category}
                       onChange={handleInputChange}
-                      className="w-full pl-10 pr-3 py-2 border border-blue-200 dark:border-blue-800 rounded-md bg-background text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600"
+                      className="w-full px-3 py-2.5 sm:py-3 border border-blue-200 dark:border-blue-800 rounded-md bg-background text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-base h-11 sm:h-12 transition-all"
                       required
                     >
                       {categories.map((category) => (
@@ -359,66 +370,86 @@ const ProjectForm: React.FC<ProjectFormProps> = ({ project }) => {
                         </option>
                       ))}
                     </select>
+                    {formErrors.category && (
+                      <p className="text-sm text-red-500 flex items-center mt-1">
+                        <AlertCircle className="w-3 h-3 mr-1 flex-shrink-0" />
+                        {formErrors.category}
+                      </p>
+                    )}
                   </div>
-                  {formErrors.category && (
-                    <p className="text-sm text-red-500">{formErrors.category}</p>
-                  )}
-                </div>
 
-                {/* Completion Date */}
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-gray-800 dark:text-gray-200">
-                    Completion Date *
-                  </label>
-                  <div className="relative">
-                    <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-blue-600 dark:text-blue-300" />
+                  {/* Completion Date */}
+                  <div className="space-y-1.5 sm:space-y-2">
+                    <label htmlFor="completedDate" className="text-sm font-medium text-gray-800 dark:text-gray-200 flex items-center">
+                      <Calendar className="w-3 h-3 mr-1 text-blue-600 dark:text-blue-300 flex-shrink-0" />
+                      <span>Completion Date</span>
+                      <span className="text-red-500 ml-1">*</span>
+                    </label>
                     <Input
+                      id="completedDate"
                       type="date"
                       name="completedDate"
                       value={formData.completedDate}
                       onChange={handleInputChange}
-                      className="pl-10 border-blue-200 dark:border-blue-800"
+                      className="border-blue-200 dark:border-blue-800 h-11 sm:h-12 text-base focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all [&::-webkit-calendar-picker-indicator]:opacity-50 [&::-webkit-calendar-picker-indicator]:hover:opacity-100"
+                      style={{ 
+                        WebkitAppearance: 'none',
+                        MozAppearance: 'textfield'
+                      }}
                       required
                     />
+                    {formErrors.completedDate && (
+                      <p className="text-sm text-red-500 flex items-center mt-1">
+                        <AlertCircle className="w-3 h-3 mr-1 flex-shrink-0" />
+                        {formErrors.completedDate}
+                      </p>
+                    )}
                   </div>
-                  {formErrors.completedDate && (
-                    <p className="text-sm text-red-500">{formErrors.completedDate}</p>
+                </div>
+
+                {/* Description */}
+                <div className="space-y-1.5 sm:space-y-2">
+                  <label htmlFor="description" className="text-sm font-medium text-gray-800 dark:text-gray-200 flex items-center">
+                    <span>Description</span>
+                    <span className="text-red-500 ml-1">*</span>
+                  </label>
+                  <Textarea
+                    id="description"
+                    name="description"
+                    value={formData.description}
+                    onChange={handleInputChange}
+                    placeholder="Describe the project details, challenges, and results..."
+                    className="min-h-[120px] sm:min-h-[140px] border-blue-200 dark:border-blue-800 resize-none text-base focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+                    required
+                  />
+                  {formErrors.description && (
+                    <p className="text-sm text-red-500 flex items-center mt-1">
+                      <AlertCircle className="w-3 h-3 mr-1 flex-shrink-0" />
+                      {formErrors.description}
+                    </p>
                   )}
                 </div>
-              </div>
 
-              {/* Description */}
-              <div className="space-y-2 mt-6">
-                <label className="text-sm font-medium text-gray-800 dark:text-gray-200">
-                  Description *
-                </label>
-                <Textarea
-                  name="description"
-                  value={formData.description}
-                  onChange={handleInputChange}
-                  placeholder="Describe the project details, challenges, and results..."
-                  className="min-h-[120px] border-blue-200 dark:border-blue-800"
-                  required
-                />
-                {formErrors.description && (
-                  <p className="text-sm text-red-500">{formErrors.description}</p>
-                )}
-              </div>
-
-              {/* Featured checkbox */}
-              <div className="flex items-center space-x-2 mt-4">
-                <input
-                  type="checkbox"
-                  id="featured"
-                  name="featured"
-                  checked={formData.featured}
-                  onChange={handleInputChange}
-                  className="w-4 h-4 text-blue-600 border-blue-200 focus:ring-blue-600"
-                />
-                <label htmlFor="featured" className="text-sm font-medium text-gray-800 dark:text-gray-200 flex items-center">
-                  <Star className="w-4 h-4 mr-1 text-yellow-500" />
-                  Featured Project
-                </label>
+                {/* Featured checkbox */}
+                <div className="flex items-start space-x-3 p-4 bg-gradient-to-r from-blue-100/60 to-sky-100/60 dark:from-blue-900/40 dark:to-sky-900/40 rounded-lg border border-blue-200 dark:border-blue-800">
+                  <input
+                    type="checkbox"
+                    id="featured"
+                    name="featured"
+                    checked={formData.featured}
+                    onChange={handleInputChange}
+                    className="w-4 h-4 mt-0.5 text-blue-600 border-blue-300 focus:ring-blue-600 rounded"
+                  />
+                  <div className="flex-1">
+                    <label htmlFor="featured" className="text-sm font-medium text-gray-800 dark:text-gray-200 flex items-center cursor-pointer">
+                      <Star className="w-4 h-4 mr-2 text-yellow-500 flex-shrink-0" />
+                      Mark as Featured Project
+                    </label>
+                    <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">
+                      Featured projects are highlighted on your portfolio homepage
+                    </p>
+                  </div>
+                </div>
               </div>
             </CardContent>
           </Card>
@@ -426,22 +457,22 @@ const ProjectForm: React.FC<ProjectFormProps> = ({ project }) => {
           {/* Project Images */}
           <Card className="border-blue-200 dark:border-blue-800 bg-blue-50/90 dark:bg-blue-900/90 backdrop-blur-sm shadow-sm">
             <div className="h-1 bg-gradient-to-r from-blue-600 to-sky-500" />
-            <CardHeader>
-              <CardTitle className="flex items-center justify-between text-gray-900 dark:text-white">
+            <CardHeader className="p-4 sm:p-6">
+              <CardTitle className="flex items-center justify-between text-gray-900 dark:text-white text-base sm:text-lg">
                 <div className="flex items-center">
-                  <ImageIcon className="w-5 h-5 mr-2 text-blue-600 dark:text-blue-300" />
+                  <ImageIcon className="w-4 h-4 sm:w-5 sm:h-5 mr-2 text-blue-600 dark:text-blue-300 flex-shrink-0" />
                   Project Images
                 </div>
-                <Badge variant="outline" className="border-blue-200 text-blue-600 dark:border-blue-800 dark:text-blue-300">
+                <Badge variant="outline" className="border-blue-200 text-blue-600 dark:border-blue-800 dark:text-blue-300 text-xs">
                   {images.length} uploaded
                 </Badge>
               </CardTitle>
             </CardHeader>
-            <CardContent className="p-6">
+            <CardContent className="p-4 sm:p-6 pt-0">
               {/* Upload Area */}
               <div
                 className={cn(
-                  'border-2 border-dashed rounded-xl p-6 text-center transition-colors',
+                  'border-2 border-dashed rounded-xl p-4 sm:p-6 text-center transition-colors',
                   dragOver
                     ? 'border-blue-600 bg-blue-100/50 dark:bg-blue-900/50'
                     : 'border-blue-200 dark:border-blue-800 hover:border-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/30',
@@ -450,15 +481,17 @@ const ProjectForm: React.FC<ProjectFormProps> = ({ project }) => {
                 onDragLeave={handleDragLeave}
                 onDrop={handleDrop}
               >
-                <div className="space-y-4">
-                  <ImageIcon className="w-10 h-10 mx-auto text-blue-600 dark:text-blue-300" />
-                  <h3 className="text-lg font-medium text-gray-900 dark:text-white">
-                    Upload Images
-                  </h3>
-                  <p className="text-sm text-gray-800 dark:text-gray-200">
-                    Drag and drop images or select from your device
-                  </p>
-                  <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                <div className="space-y-3 sm:space-y-4">
+                  <ImageIcon className="w-8 h-8 sm:w-10 sm:h-10 mx-auto text-blue-600 dark:text-blue-300" />
+                  <div className="space-y-1 sm:space-y-2">
+                    <h3 className="text-base sm:text-lg font-medium text-gray-900 dark:text-white">
+                      Upload Images
+                    </h3>
+                    <p className="text-xs sm:text-sm text-gray-800 dark:text-gray-200">
+                      Drag and drop images or select from your device
+                    </p>
+                  </div>
+                  <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 justify-center">
                     <input
                       ref={fileInputRef}
                       type="file"
@@ -471,9 +504,10 @@ const ProjectForm: React.FC<ProjectFormProps> = ({ project }) => {
                     <Button
                       type="button"
                       variant="outline"
+                      size="sm"
                       onClick={() => fileInputRef.current?.click()}
                       disabled={uploading}
-                      className="border-blue-200 text-blue-600 dark:border-blue-800 dark:text-blue-300 hover:bg-blue-100 dark:hover:bg-blue-900/30"
+                      className="border-blue-200 text-blue-600 dark:border-blue-800 dark:text-blue-300 hover:bg-blue-100 dark:hover:bg-blue-900/30 h-9 sm:h-10"
                     >
                       <FolderOpen className="w-4 h-4 mr-2" />
                       Gallery
@@ -490,16 +524,17 @@ const ProjectForm: React.FC<ProjectFormProps> = ({ project }) => {
                     <Button
                       type="button"
                       variant="outline"
+                      size="sm"
                       onClick={() => cameraInputRef.current?.click()}
                       disabled={uploading}
-                      className="border-blue-200 text-blue-600 dark:border-blue-800 dark:text-blue-300 hover:bg-blue-100 dark:hover:bg-blue-900/30"
+                      className="border-blue-200 text-blue-600 dark:border-blue-800 dark:text-blue-300 hover:bg-blue-100 dark:hover:bg-blue-900/30 h-9 sm:h-10"
                     >
                       <Camera className="w-4 h-4 mr-2" />
                       Camera
                     </Button>
                   </div>
                   {uploading && (
-                    <div className="mt-4">
+                    <div className="mt-3 sm:mt-4">
                       <div className="flex items-center justify-center space-x-2 text-blue-600 dark:text-blue-300">
                         <Loader2 className="w-4 h-4 animate-spin" />
                         <span className="text-sm">Uploading...</span>
@@ -511,35 +546,36 @@ const ProjectForm: React.FC<ProjectFormProps> = ({ project }) => {
 
               {/* Image Grid */}
               {images.length > 0 && (
-                <div className="mt-6">
-                  <h4 className="text-sm font-medium text-gray-800 dark:text-gray-200 mb-4 flex items-center">
-                    <CheckCircle className="w-4 h-4 mr-2 text-blue-600 dark:text-blue-300" />
+                <div className="mt-4 sm:mt-6">
+                  <h4 className="text-sm font-medium text-gray-800 dark:text-gray-200 mb-3 sm:mb-4 flex items-center">
+                    <CheckCircle className="w-4 h-4 mr-2 text-blue-600 dark:text-blue-300 flex-shrink-0" />
                     Images ({images.length})
                   </h4>
-                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
                     {images.map((imageUrl, index) => (
                       <div
                         key={`${imageUrl}-${index}`}
-                        className="relative group aspect-square rounded-lg overflow-hidden border border-blue-200 dark:border-blue-800"
+                        className="relative group aspect-square rounded-lg overflow-hidden border border-blue-200 dark:border-blue-800 bg-gray-100 dark:bg-gray-800"
                       >
                         <Image
                           src={imageUrl}
                           alt={`Project image ${index + 1}`}
                           fill
                           className="object-cover group-hover:scale-105 transition-transform duration-200"
-                          sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, 25vw"
+                          sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, (max-width: 1024px) 25vw, 20vw"
                         />
                         {index === 0 && (
-                          <Badge className="absolute top-2 left-2 bg-blue-600 text-white">
+                          <Badge className="absolute top-1.5 sm:top-2 left-1.5 sm:left-2 bg-blue-600 text-white text-xs">
                             Main
                           </Badge>
                         )}
                         <button
                           type="button"
                           onClick={() => handleRemoveImage(imageUrl, index)}
-                          className="absolute top-2 right-2 p-1.5 bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-600"
+                          className="absolute top-1.5 sm:top-2 right-1.5 sm:right-2 p-1 sm:p-1.5 bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-600 focus:opacity-100 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-1"
+                          aria-label={`Remove image ${index + 1}`}
                         >
-                          <X className="w-4 h-4" />
+                          <X className="w-3 h-3 sm:w-4 sm:h-4" />
                         </button>
                       </div>
                     ))}
@@ -550,19 +586,19 @@ const ProjectForm: React.FC<ProjectFormProps> = ({ project }) => {
           </Card>
 
           {/* Actions */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-end">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-end pt-6 sm:pt-8">
             <Button
               type="button"
               variant="outline"
               onClick={() => router.push('/admin/dashboard')}
-              className="border-blue-200 text-blue-600 dark:border-blue-800 dark:text-blue-300 hover:bg-blue-100 dark:hover:bg-blue-900/30"
+              className="border-blue-200 text-blue-600 dark:border-blue-800 dark:text-blue-300 hover:bg-blue-100 dark:hover:bg-blue-900/30 h-11 sm:h-12 order-2 sm:order-1 transition-all"
               disabled={saving}
             >
               Cancel
             </Button>
             <Button
               type="submit"
-              className="bg-gradient-to-r from-blue-600 to-sky-500 text-white hover:from-blue-700 hover:to-sky-600"
+              className="bg-gradient-to-r from-blue-600 to-sky-500 text-white hover:from-blue-700 hover:to-sky-600 h-11 sm:h-12 order-1 sm:order-2 font-medium transition-all shadow-lg hover:shadow-xl"
               disabled={saving || uploading}
             >
               {saving ? (
@@ -573,7 +609,7 @@ const ProjectForm: React.FC<ProjectFormProps> = ({ project }) => {
               ) : (
                 <>
                   <Save className="w-4 h-4 mr-2" />
-                  {isEditing ? 'Update' : 'Create'}
+                  {isEditing ? 'Update Project' : 'Create Project'}
                 </>
               )}
             </Button>
