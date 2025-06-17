@@ -8,14 +8,29 @@ const nextConfig: NextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
-    domains: [
-      'firebasestorage.googleapis.com',
-      'storage.googleapis.com',
-    ],
+    // Remove the deprecated 'domains' array - use only remotePatterns
     formats: ['image/webp', 'image/avif'],
     minimumCacheTTL: 60,
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'firebasestorage.googleapis.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'storage.googleapis.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'westsiderenovationinc.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'www.westsiderenovationinc.com',
+      },
+    ],
   },
   experimental: {
     optimizePackageImports: ['lucide-react'],
@@ -46,4 +61,4 @@ const nextConfig: NextConfig = {
   },
 }
 
-export default nextConfig
+export default nextConfig;
