@@ -75,6 +75,16 @@ const navItems: NavItem[] = [
     path: '/about',
     icon: <Info className="w-4 h-4" />,
   },
+   {
+    name: 'Projects',
+    path: '/projects',
+    icon: <Eye className="w-4 h-4" />,
+  },
+  {
+    name: 'Contact',
+    path: '/contact',
+    icon: <Mail className="w-4 h-4" />,
+  },
   {
     name: 'Services',
     path: '/services',
@@ -82,14 +92,19 @@ const navItems: NavItem[] = [
     icon: <Wrench className="w-4 h-4" />,
     subItems: [
       {
+        name: 'All Services',
+        path: '/services',
+        description: 'Explore all our services',
+      },
+      {
         name: 'Interior Remodeling',
         path: '/services/interior-remodeling',
         description: 'Complete interior transformations',
       },
       {
-        name: 'Custom Carpentry',
-        path: '/services/custom-carpentry',
-        description: 'Bespoke woodwork and cabinetry',
+        name: 'Installation',
+        path: '/services/installation',
+        description: 'Expert installation services for all needs',
       },
       {
         name: 'Painting',
@@ -107,31 +122,26 @@ const navItems: NavItem[] = [
         description: 'Expert plumbing solutions',
       },
       {
-        name: 'Bathroom Renovation',
-        path: '/services/bathroom-renovation',
-        description: 'Luxury bathroom transformations',
+        name: 'Wallpaper',
+        path: '/services/wallpaper',
+        description: 'Expert wallpaper installation and removal',
       },
       {
-        name: 'Kitchen Remodeling',
-        path: '/services/kitchen-remodeling',
-        description: 'Modern kitchen designs',
+        name: 'Drywall Repairs',
+        path: '/services/repairs',
+        description: 'Expert drywall repair services for your home',
+      },
+      {
+        name: 'Cleaning',
+        path: '/services/cleaning',
+        description: 'Beautiful cleaning services',
       },
       {
         name: 'Flooring',
         path: '/services/flooring',
-        description: 'Beautiful flooring installations',
+        description: 'Expert flooring installation and repair services',
       },
     ],
-  },
-  {
-    name: 'Projects',
-    path: '/projects',
-    icon: <Eye className="w-4 h-4" />,
-  },
-  {
-    name: 'Contact',
-    path: '/contact',
-    icon: <Mail className="w-4 h-4" />,
   },
 ];
 

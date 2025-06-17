@@ -9,43 +9,43 @@ import {
   Clock, 
   CheckCircle, 
   Home, 
-  Building2, 
-  Palette, 
+  Wrench, 
+  Settings, 
   Users, 
   Star,
   Phone,
   Mail,
   MapPin,
-  Scissors,
+  Zap,
   ArrowRight
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 
-export default function Wallpaper() {
+export default function Installation() {
   const services = [
     {
-      icon: Palette,
-      title: "Wallpaper Installation",
-      description: "Professional wallpaper installation for any space.",
-      features: ["Pattern matching", "Smooth application", "Custom designs"]
-    },
-    {
-      icon: Scissors,
-      title: "Wallpaper Removal",
-      description: "Safe and efficient wallpaper removal services.",
-      features: ["Damage-free removal", "Surface preparation", "Clean finish"]
-    },
-    {
       icon: Home,
-      title: "Residential Wallpaper",
-      description: "Beautiful wallpaper solutions for your home.",
-      features: ["Living rooms", "Bedrooms", "Accent walls"]
+      title: "Appliance Installation",
+      description: "Professional installation for all home appliances.",
+      features: ["Kitchen appliances","Smart home devices"]
     },
     {
-      icon: Building2,
-      title: "Commercial Wallpaper",
-      description: "Professional wallpaper services for businesses.",
-      features: ["Office spaces", "Retail stores", "Hospitality venues"]
+      icon: Zap,
+      title: "Fixture Installation",
+      description: "Expert installation of lighting and plumbing fixtures.",
+      features: ["Light fixtures", "Ceiling fans", "Bathroom fixtures"]
+    },
+    {
+      icon: Settings,
+      title: "Cabinet Installation",
+      description: "Precise installation of custom and pre-fab cabinets.",
+      features: ["Kitchen cabinets", "Bathroom vanities", "Built-in storage"]
+    },
+    {
+      icon: Wrench,
+      title: "Hardware Installation",
+      description: "Professional installation of doors, windows, and hardware.",
+      features: ["Door installation", "Window installation", "Lock and handle installation"]
     }
   ];
 
@@ -67,8 +67,8 @@ export default function Wallpaper() {
     },
     {
       icon: Sparkles,
-      title: "Design Expertise",
-      description: "Expert design consultation and pattern matching skills."
+      title: "Quality Guarantee",
+      description: "Professional installation with warranty protection."
     }
   ];
 
@@ -93,14 +93,14 @@ export default function Wallpaper() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center py-20 lg:py-28">
             <div>
               <Badge variant="secondary" className="mb-6 bg-blue-100 text-blue-800 hover:bg-blue-200">
-                Professional Wallpaper Services
+                Professional Installation Services
               </Badge>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-                Expert Wallpaper Services
+                Expert Installation Services
               </h1>
               <p className="text-xl mb-8 text-blue-100 leading-relaxed">
-                Transform your space with Westside Renovation Inc's professional wallpaper services in New York. 
-                We deliver beautiful installations and removals with attention to every detail.
+                Transform your space with Westside Renovation Inc's professional installation services in New York. 
+                We deliver precise installations with attention to every detail.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button 
@@ -124,9 +124,9 @@ export default function Wallpaper() {
             <div className="relative">
               <div className="aspect-[4/3] bg-gradient-to-br from-blue-200/20 to-blue-300/30 rounded-2xl backdrop-blur-sm border border-white/20 shadow-2xl flex items-center justify-center">
                 <div className="text-center text-blue-100">
-                  <Palette className="h-16 w-16 mx-auto mb-4" />
-                  <p className="text-lg font-medium">Professional Wallpaper Image</p>
-                  <p className="text-sm opacity-75">Replace with actual wallpaper photo</p>
+                  <Wrench className="h-16 w-16 mx-auto mb-4" />
+                  <p className="text-lg font-medium">Professional Installation Image</p>
+                  <p className="text-sm opacity-75">Replace with actual installation photo</p>
                 </div>
               </div>
             </div>
@@ -139,10 +139,10 @@ export default function Wallpaper() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-              Our Wallpaper Services
+              Our Installation Services
             </h2>
             <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-              Professional wallpaper installation and removal for residential and commercial spaces.
+              Professional installation solutions for all your home improvement needs.
             </p>
           </div>
           
@@ -229,18 +229,18 @@ export default function Wallpaper() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {[
               {
-                name: "Rachel Green",
-                role: "Upper East Side Resident",
-                content: "Beautiful wallpaper installation! The team matched the patterns perfectly and the finish is flawless. Our dining room looks absolutely stunning now.",
+                name: "Robert Williams",
+                role: "Brooklyn Homeowner",
+                content: "Excellent installation service! The team installed our new kitchen appliances quickly and professionally. Everything works perfectly and they cleaned up after themselves.",
                 rating: 5,
-                image: "RG"
+                image: "RW"
               },
               {
-                name: "Steven Walsh",
-                role: "Brooklyn Business Owner",
-                content: "Westside Renovation handled our office wallpaper project perfectly. Professional installation and they worked around our business hours. Excellent service!",
+                name: "Maria Rodriguez",
+                role: "Queens Business Owner",
+                content: "Westside Renovation installed all our office fixtures and security systems. Professional work, on time, and great attention to detail. Highly recommend!",
                 rating: 5,
-                image: "SW"
+                image: "MR"
               }
             ].map((testimonial, index) => (
               <div key={index} className="relative">
@@ -277,10 +277,10 @@ export default function Wallpaper() {
         <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-4xl sm:text-5xl font-bold mb-6">
-              Ready for Beautiful Wallpaper?
+              Ready for Professional Installation?
             </h2>
             <p className="text-xl mb-8 text-blue-100 max-w-3xl mx-auto leading-relaxed">
-              Join hundreds of satisfied customers across New York. Get your free consultation today and experience the difference professional wallpaper services make.
+              Join hundreds of satisfied customers across New York. Get your free consultation today and experience the difference professional installation makes.
             </p>
           </div>
           

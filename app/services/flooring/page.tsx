@@ -10,42 +10,42 @@ import {
   CheckCircle, 
   Home, 
   Building2, 
-  Palette, 
+  Layers, 
   Users, 
   Star,
   Phone,
   Mail,
   MapPin,
-  Scissors,
+  Square,
   ArrowRight
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 
-export default function Wallpaper() {
+export default function Flooring() {
   const services = [
     {
-      icon: Palette,
-      title: "Wallpaper Installation",
-      description: "Professional wallpaper installation for any space.",
-      features: ["Pattern matching", "Smooth application", "Custom designs"]
+      icon: Layers,
+      title: "Hardwood Flooring",
+      description: "Beautiful hardwood installation and refinishing services.",
+      features: ["New installation", "Refinishing", "Repair services"]
     },
     {
-      icon: Scissors,
-      title: "Wallpaper Removal",
-      description: "Safe and efficient wallpaper removal services.",
-      features: ["Damage-free removal", "Surface preparation", "Clean finish"]
+      icon: Square,
+      title: "Tile Installation",
+      description: "Professional tile installation for any space.",
+      features: ["Ceramic tiles", "Porcelain tiles", "Natural stone"]
     },
     {
       icon: Home,
-      title: "Residential Wallpaper",
-      description: "Beautiful wallpaper solutions for your home.",
-      features: ["Living rooms", "Bedrooms", "Accent walls"]
+      title: "Vinyl & LVP",
+      description: "Modern vinyl and luxury vinyl plank installations.",
+      features: ["Waterproof options", "Click-lock systems", "Glue-down installation"]
     },
     {
       icon: Building2,
-      title: "Commercial Wallpaper",
-      description: "Professional wallpaper services for businesses.",
-      features: ["Office spaces", "Retail stores", "Hospitality venues"]
+      title: "Commercial Flooring",
+      description: "Durable flooring solutions for business spaces.",
+      features: ["High-traffic areas", "Slip-resistant options", "Quick installation"]
     }
   ];
 
@@ -65,11 +65,6 @@ export default function Wallpaper() {
       title: "Flexible Scheduling",
       description: "We work around your schedule with convenient timing."
     },
-    {
-      icon: Sparkles,
-      title: "Design Expertise",
-      description: "Expert design consultation and pattern matching skills."
-    }
   ];
 
   const router = useRouter();
@@ -93,14 +88,14 @@ export default function Wallpaper() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center py-20 lg:py-28">
             <div>
               <Badge variant="secondary" className="mb-6 bg-blue-100 text-blue-800 hover:bg-blue-200">
-                Professional Wallpaper Services
+                Professional Flooring Services
               </Badge>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-                Expert Wallpaper Services
+                Expert Flooring Installation
               </h1>
               <p className="text-xl mb-8 text-blue-100 leading-relaxed">
-                Transform your space with Westside Renovation Inc's professional wallpaper services in New York. 
-                We deliver beautiful installations and removals with attention to every detail.
+                Transform your space with Westside Renovation Inc's professional flooring services in New York. 
+                We deliver beautiful, durable floors with attention to every detail.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button 
@@ -124,9 +119,9 @@ export default function Wallpaper() {
             <div className="relative">
               <div className="aspect-[4/3] bg-gradient-to-br from-blue-200/20 to-blue-300/30 rounded-2xl backdrop-blur-sm border border-white/20 shadow-2xl flex items-center justify-center">
                 <div className="text-center text-blue-100">
-                  <Palette className="h-16 w-16 mx-auto mb-4" />
-                  <p className="text-lg font-medium">Professional Wallpaper Image</p>
-                  <p className="text-sm opacity-75">Replace with actual wallpaper photo</p>
+                  <Layers className="h-16 w-16 mx-auto mb-4" />
+                  <p className="text-lg font-medium">Professional Flooring Image</p>
+                  <p className="text-sm opacity-75">Replace with actual flooring photo</p>
                 </div>
               </div>
             </div>
@@ -139,10 +134,10 @@ export default function Wallpaper() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-              Our Wallpaper Services
+              Our Flooring Services
             </h2>
             <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-              Professional wallpaper installation and removal for residential and commercial spaces.
+              Professional flooring installation and repair for residential and commercial spaces.
             </p>
           </div>
           
@@ -229,18 +224,18 @@ export default function Wallpaper() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {[
               {
-                name: "Rachel Green",
-                role: "Upper East Side Resident",
-                content: "Beautiful wallpaper installation! The team matched the patterns perfectly and the finish is flawless. Our dining room looks absolutely stunning now.",
+                name: "Patricia Lopez",
+                role: "Queens Homeowner",
+                content: "Outstanding hardwood installation! The team was professional, cleaned up perfectly, and our floors look absolutely beautiful. The quality exceeded our expectations!",
                 rating: 5,
-                image: "RG"
+                image: "PL"
               },
               {
-                name: "Steven Walsh",
-                role: "Brooklyn Business Owner",
-                content: "Westside Renovation handled our office wallpaper project perfectly. Professional installation and they worked around our business hours. Excellent service!",
+                name: "Mark Thompson",
+                role: "Staten Island Business Owner",
+                content: "Westside Renovation installed LVP flooring in our retail space. Fast, professional work that didn't disrupt our business. The floors look amazing and are holding up great!",
                 rating: 5,
-                image: "SW"
+                image: "MT"
               }
             ].map((testimonial, index) => (
               <div key={index} className="relative">
@@ -277,10 +272,10 @@ export default function Wallpaper() {
         <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-4xl sm:text-5xl font-bold mb-6">
-              Ready for Beautiful Wallpaper?
+              Ready for Beautiful New Floors?
             </h2>
             <p className="text-xl mb-8 text-blue-100 max-w-3xl mx-auto leading-relaxed">
-              Join hundreds of satisfied customers across New York. Get your free consultation today and experience the difference professional wallpaper services make.
+              Join hundreds of satisfied customers across New York. Get your free consultation today and experience the difference professional flooring makes.
             </p>
           </div>
           
