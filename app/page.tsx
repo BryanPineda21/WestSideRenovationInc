@@ -224,7 +224,7 @@ export default function Home() {
             >
               <Button 
                 size="lg" 
-                className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 border-0 group transition-all"
+                className=" bg-blue-700 dark:bg-blue-300 text-white dark:text-black"
                 asChild
               >
                 <Link href="/contact">
@@ -242,7 +242,7 @@ export default function Home() {
               <Button 
                 size="lg" 
                 variant="outline" 
-                className="border-white text-white hover:bg-white/10"
+                className="border-white text-blue-700 hover:text-white hover:bg-white/10"
                 asChild
               >
                 <Link href="/projects">
@@ -570,7 +570,7 @@ export default function Home() {
             repeatType: "reverse"
           }}
           style={{
-            backgroundImage: 'url("/api/placeholder/400/400")',
+            backgroundImage: 'url("/icestudios.png")',
             backgroundSize: '40%',
           }}
         />

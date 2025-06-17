@@ -67,7 +67,7 @@ const About: React.FC = () => {
       {/* Hero Section - Fixed navbar overlap */}
       <section className="relative h-[400px] w-full overflow-hidden mt-16 lg:mt-20">
         <div className="absolute inset-0 bg-gradient-to-r from-blue-900/80 to-blue-600/70">
-          <div className="absolute inset-0 bg-[url('/images/hero-placeholder.jpg')] bg-cover bg-center opacity-60"></div>
+          <div className="absolute inset-0 bg-[url('/cabinetinstallation.jpg')] bg-cover bg-center opacity-60"></div>
         </div>
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-4">
           <motion.div
@@ -334,7 +334,7 @@ const About: React.FC = () => {
           variants={fadeIn}
           style={{ willChange: "transform" }}
         >
-          <div className="absolute inset-0 bg-[url('/api/placeholder/800/400')] bg-cover bg-center opacity-10 mix-blend-overlay"></div>
+          <div className="absolute inset-0 bg-[url('/fencepainting.png')] bg-cover bg-center opacity-10 mix-blend-overlay"></div>
           
           <h2 className="text-3xl sm:text-4xl font-bold mb-4 relative z-10">Ready to Transform Your Space?</h2>
           <p className="text-lg text-blue-100 max-w-2xl mx-auto mb-6 relative z-10">
